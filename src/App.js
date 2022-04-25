@@ -7,9 +7,17 @@ function App() {
   const [inputText, setInputText] = useState("")
   const [todos, setTodos] = useState([])
 
-
+  // take input from user to store as a string
   const inputHandler = (Event) = () => {
     setInputText(Event.target.value)
+  }
+
+  const createHandler = (Event) = () => {
+    Event.preventDefault()
+    // set todo value to equal the value of the input text
+    setTodos([...todos, inputText])
+    // clear the value of inputText
+    setInputText("")
   }
 
   return (
@@ -17,7 +25,8 @@ function App() {
       <header className="App-header">Todo List</header>
       <h1>Add Todo Item</h1>
       <input className='InputBox' onChange={inputHandler}></input>
-      <button>Create Todo</button>
+      <button onClick={createHandler}>Create Todo</button>
+      
 
 
     </div>
