@@ -7,30 +7,56 @@ function App() {
   const [inputText, setInputText] = useState("")
   const [todos, setTodos] = useState([])
 
-  // take input from user to store as a string
-  const inputHandler = (Event) = () => {
-    setInputText(Event.target.value)
+  // const inputHandler = (event) = () => {
+  //   setInputText(event.target.value)
+  // }
+
+  const createHandler = (event) = () => {
+    // event.preventDefault()
+    // setTodos([...todos, inputText])
+    let addTodo = ([...todos, inputText])
+    // addTodo.push(inputText.value)
+    setTodos(addTodo)
+    setInputText("")
   }
 
-  const createHandler = (Event) = () => {
-    Event.preventDefault()
-    // set todo value to equal the value of the input text
-    setTodos([...todos, inputText])
-    // clear the value of inputText
-    setInputText("")
+  const deleteHandler = (index) => {
+    let storedTodos = [...todos]
+    storedTodos.splice(index, 1)
+    setTodos(storedTodos)
   }
 
   return (
     <div className="App">
       <header className="App-header">Todo List</header>
       <h1>Add Todo Item</h1>
-      <input className='InputBox' onChange={inputHandler}></input>
+      <input 
+      className='InputBox'
+      type="text"
+      value={inputText} 
+      onChange={(event) => {
+        setInputText(event.target.value)}}
+      // onChange={createHandler}
+      ></input>
       <button onClick={createHandler}>Create Todo</button>
-      
-
-
+      {todos.map((todo, index) => (
+        <Todo key={index} todo={todo} deleteHandler={deleteHandler()}/>
+      ))}
     </div>
   );
+  
 }
+
+const Todo = (todo, index, deleteHandler) => {
+  return (
+    <div>
+      <h2>{todo}</h2> 
+      <button onClick={() => deleteHandler(index)}>Delete</button>
+    </div>
+  )
+}
+
+// I don't understand!
+// need to go back to the start, start over.
 
 export default App;
